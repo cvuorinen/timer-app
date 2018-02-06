@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx'
 
+import { getEntries, createEntry } from './db'
+
 export class TimerStore {
   @observable started: boolean = false
   @observable timer = 0
@@ -13,17 +15,33 @@ export class TimerStore {
       action('interval', () => this.timer++),
       1000
     )
+
+    getEntries().then((res: any) => {
+      console.log('getEntries', res)
+    })
   }
 
   @action.bound
   stop() {
     this.started = false
-    clearInterval(this.interval as NodeJS.Timer)
+
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+
+    createEntry({
+      date: 'now',
+      duration: this.timer,
+      title: 'Foo',
+      project: '-'
+    }).then((res: any) => {
+      console.log('create', res)
+    })
   }
 
   @action.bound
-  resetTimer() {
-    this.timer = 0
+  resetTimer(value: number = 0) {
+    this.timer = value
   }
 }
 
