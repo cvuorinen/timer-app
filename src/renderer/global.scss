@@ -1,5 +1,11 @@
 // Define variables to override Spectre default ones
 $primary-color: #2e5bec;
 
-// Import full Spectre source code
+// Import full Spectre source code + icons
 @import "node_modules/spectre.css/src/spectre";
+@import "node_modules/spectre.css/src/spectre-icons";
+
+time em {
+  font-style: normal;
+  font-size: 125%;
+}
