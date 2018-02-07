@@ -18,12 +18,18 @@ PouchDB.plugin(PouchDbFind)
 
 const db = new PouchDB<Entry>('timer', { adapter: 'websql' })
 db.createIndex({
-  index: {fields: ['date']}
+  index: {fields: ['modified']}
 })
 
 export async function getEntries(): Promise<Entry[]> {
+  const query = {
+    selector: {},
+    sort: [{modified: 'desc'}],
+    limit: 50
+  } as any // sort typing not working
+
   try {
-    const response = await db.find({ selector: {}, sort: ['date'] })
+    const response = await db.find(query)
     console.log(response)
 
     return response.docs
@@ -34,6 +40,8 @@ export async function getEntries(): Promise<Entry[]> {
 }
 
 export function createEntry(entry: Entry): Promise<Entry> {
+  entry.modified = new Date().toISOString()
+
   return db.post(entry)
     .then(response => {
       entry._id = response.id
@@ -51,6 +59,8 @@ export function saveEntry(entry: Entry): Promise<boolean> {
   if (entry._id === undefined || entry._rev === undefined) {
     throw "Cannot save entry without _id or _rev"
   }
+
+  entry.modified = new Date().toISOString()
 
   return db.put(entry)
     .then(response => {

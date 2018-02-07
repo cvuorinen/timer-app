@@ -53,6 +53,20 @@ export class TimerStore {
   }
 
   @action.bound
+  continueEntry(entry: Entry) {
+    this.stop()
+    this.entry = entry
+    this.start()
+  }
+
+  @action.bound
+  updateEntry(title: string, project: string) {
+    this.entry.title = title
+    this.entry.project = project
+    console.log('updateEntry', this.entry)
+  }
+
+  @action.bound
   resetDuration(value: number = 0) {
     this.started = getTimestamp() - value
     this.updateDuration()
@@ -68,6 +82,7 @@ export class TimerStore {
 }
 
 const timerStore = new TimerStore()
+timerStore.loadEntries()
 
 export default timerStore
 
