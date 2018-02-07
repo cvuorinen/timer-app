@@ -1,9 +1,46 @@
 // Define variables to override Spectre default ones
-$primary-color: #2e5bec;
+//$primary-color: #2e5bec;
 
 // Import full Spectre source code + icons
 @import "node_modules/spectre.css/src/spectre";
 @import "node_modules/spectre.css/src/spectre-icons";
+
+body {
+  padding: 10px 5px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 50px auto auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "button time form"
+    "list list list";
+
+  >.main-button {
+    grid-area: button;
+  }
+
+  >.time {
+    grid-area: time;
+    line-height: 40px;
+    font-size: 1.5em;
+    letter-spacing: -1px;
+
+    color: #999;
+    em {
+      color: #50596c;
+    }
+  }
+
+  >.form {
+    grid-area: form;
+  }
+
+  >.list {
+    grid-area: list;
+  }
+}
 
 time em {
   font-style: normal;

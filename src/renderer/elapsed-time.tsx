@@ -13,7 +13,7 @@ export default class ElapsedTime extends React.Component<{ duration: number }, {
       let seconds: number | string = duration % 60
       seconds = (seconds < 10) ? '0' + seconds : seconds
 
-      return <span><em>{minutes}</em>:{seconds} min</span>
+      return <span><em>{minutes}</em>:{seconds}</span>
     }
 
     const hours = Math.floor(duration / 3600)

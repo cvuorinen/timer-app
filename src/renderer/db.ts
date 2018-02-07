@@ -1,8 +1,8 @@
 import PouchDB from 'pouchdb-browser'
 import PouchDbFind from 'pouchdb-find'
 
-type DateString = string
-type DateTimeString = string
+export type DateString = string
+export type DateTimeString = string
 
 export type Entry = {
   _id?: string
@@ -37,6 +37,7 @@ export function createEntry(entry: Entry): Promise<Entry> {
   return db.post(entry)
     .then(response => {
       entry._id = response.id
+      entry._rev = response.rev
 
       return entry
     })
@@ -52,7 +53,11 @@ export function saveEntry(entry: Entry): Promise<boolean> {
   }
 
   return db.put(entry)
-    .then(response => response.ok)
+    .then(response => {
+      entry._rev = response.rev
+
+      return response.ok
+    })
     .catch(err => {
       console.log(err)
       throw err
