@@ -18,13 +18,13 @@ PouchDB.plugin(PouchDbFind)
 
 const db = new PouchDB<Entry>('timer', { adapter: 'websql' })
 db.createIndex({
-  index: {fields: ['modified']}
+  index: { fields: ['modified'] }
 })
 
 export async function getEntries(): Promise<Entry[]> {
   const query = {
     selector: {},
-    sort: [{modified: 'desc'}],
+    sort: [{ modified: 'desc' }],
     limit: 50
   } as any // sort typing not working
 
@@ -42,7 +42,8 @@ export async function getEntries(): Promise<Entry[]> {
 export function createEntry(entry: Entry): Promise<Entry> {
   entry.modified = new Date().toISOString()
 
-  return db.post(entry)
+  return db
+    .post(entry)
     .then(response => {
       entry._id = response.id
       entry._rev = response.rev
@@ -57,12 +58,13 @@ export function createEntry(entry: Entry): Promise<Entry> {
 
 export function saveEntry(entry: Entry): Promise<boolean> {
   if (entry._id === undefined || entry._rev === undefined) {
-    throw "Cannot save entry without _id or _rev"
+    throw 'Cannot save entry without _id or _rev'
   }
 
   entry.modified = new Date().toISOString()
 
-  return db.put(entry)
+  return db
+    .put(entry)
     .then(response => {
       entry._rev = response.rev
 
@@ -76,10 +78,11 @@ export function saveEntry(entry: Entry): Promise<boolean> {
 
 export function removeEntry(entry: Entry): Promise<boolean> {
   if (entry._id === undefined || entry._rev === undefined) {
-    throw "Cannot remove entry without _id or _rev"
+    throw 'Cannot remove entry without _id or _rev'
   }
 
-  return db.remove(entry as PouchDB.Core.ExistingDocument<Entry>)
+  return db
+    .remove(entry as PouchDB.Core.ExistingDocument<Entry>)
     .then(response => response.ok)
     .catch(err => {
       console.log(err)

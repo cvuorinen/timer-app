@@ -5,7 +5,8 @@ import { Entry, getEntries, createEntry, DateString, saveEntry } from './db'
 export class TimerStore {
   @observable started: number = 0
   @observable entries: Entry[] = []
-  @observable entry: Entry = {
+  @observable
+  entry: Entry = {
     date: getCurrentDate(),
     duration: 0,
     title: '',
@@ -21,10 +22,7 @@ export class TimerStore {
     }
 
     this.started = getTimestamp() - this.entry.duration
-    this.interval = setInterval(
-      this.updateDuration,
-      1000
-    )
+    this.interval = setInterval(this.updateDuration, 1000)
 
     if (!this.entry._id) {
       createEntry(this.entry).then(response => {
@@ -74,10 +72,12 @@ export class TimerStore {
 
   @action.bound
   loadEntries() {
-    getEntries().then(action('getEntries', (response: Entry[]) => {
-      console.log('getEntries', response)
-      this.entries = response
-    }))
+    getEntries().then(
+      action('getEntries', (response: Entry[]) => {
+        console.log('getEntries', response)
+        this.entries = response
+      })
+    )
   }
 }
 

@@ -24,18 +24,18 @@ export default class App extends React.Component<AppProps, {}> {
   render() {
     const store = this.props.store
 
-    return (<div className="container">
-      <MainButton store={store} />
+    return (
+      <div className="container">
+        <MainButton store={store} />
 
-      <div className="time">
-        <ElapsedTime duration={store.entry.duration} />
+        <div className="time">
+          <ElapsedTime duration={store.entry.duration} />
+        </div>
+
+        <Form entry={store.entry} updateEntry={this.updateEntry} />
+
+        <List entries={store.entries} onContinue={store.continueEntry} />
       </div>
-
-      <Form entry={store.entry}
-        updateEntry={this.updateEntry} />
-
-      <List entries={store.entries}
-        onContinue={store.continueEntry} />
-    </div>)
+    )
   }
 }

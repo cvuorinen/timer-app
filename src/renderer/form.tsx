@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
 
-import { Entry } from './db'
+import { Entry } from './db'
 
 interface FormProps {
-  entry: Entry,
-  updateEntry: (title:string, project: string, start?: boolean) => void
+  entry: Entry
+  updateEntry: (title: string, project: string, start?: boolean) => void
 }
 
 interface FormState {
-  title: string,
-  project: string,
+  title: string
+  project: string
   duration: string
 }
 
@@ -41,18 +41,23 @@ export default class Form extends React.Component<FormProps, FormState> {
   }
 
   render() {
-    return (<form className="form"
-      onSubmit={this.onSubmit}>
-      <input className="form-input"
-        placeholder="What's up?"
-        name="title"
-        value={this.state.title}
-        onChange={this.handleChange} />
-      <input className="form-input input-sm"
-        name="project"
-        value={this.state.project}
-        onChange={this.handleChange} />
-      <button type="submit" className="d-none"></button>
-    </form>)
+    return (
+      <form className="form" onSubmit={this.onSubmit}>
+        <input
+          className="form-input"
+          placeholder="What's up?"
+          name="title"
+          value={this.state.title}
+          onChange={this.handleChange}
+        />
+        <input
+          className="form-input input-sm"
+          name="project"
+          value={this.state.project}
+          onChange={this.handleChange}
+        />
+        <button type="submit" className="d-none" />
+      </form>
+    )
   }
 }

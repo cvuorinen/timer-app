@@ -2,8 +2,8 @@
 //$primary-color: #2e5bec;
 
 // Import full Spectre source code + icons
-@import "node_modules/spectre.css/src/spectre";
-@import "node_modules/spectre.css/src/spectre-icons";
+@import 'node_modules/spectre.css/src/spectre';
+@import 'node_modules/spectre.css/src/spectre-icons';
 
 body {
   padding: 10px 5px;
@@ -14,14 +14,14 @@ body {
   grid-template-columns: 50px auto auto;
   grid-template-rows: auto;
   grid-template-areas:
-    "button time form"
-    "list list list";
+    'button time form'
+    'list list list';
 
-  >.main-button {
+  > .main-button {
     grid-area: button;
   }
 
-  >.time {
+  > .time {
     grid-area: time;
     margin-right: 5px;
     line-height: 40px;
@@ -34,11 +34,11 @@ body {
     }
   }
 
-  >.form {
+  > .form {
     grid-area: form;
   }
 
-  >.list {
+  > .list {
     grid-area: list;
   }
 }

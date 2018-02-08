@@ -12,17 +12,24 @@ export default class MainButton extends React.Component<MainButtonProps, {}> {
   render() {
     const store = this.props.store
 
-    return (<div className="main-button">
-      { store.started
-        ? <button className="btn btn-action btn-lg circle btn-error"
-            onClick={store.stop}>
-            <i className="icon icon-shutdown"></i>
+    return (
+      <div className="main-button">
+        {store.started ? (
+          <button
+            className="btn btn-action btn-lg circle btn-error"
+            onClick={store.stop}
+          >
+            <i className="icon icon-shutdown" />
           </button>
-        : <button className="btn btn-action btn-lg circle btn-success"
-            onClick={store.start}>
-            <i className="icon icon-time"></i>
+        ) : (
+          <button
+            className="btn btn-action btn-lg circle btn-success"
+            onClick={store.start}
+          >
+            <i className="icon icon-time" />
           </button>
-      }
-    </div>)
+        )}
+      </div>
+    )
   }
 }

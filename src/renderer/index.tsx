@@ -8,6 +8,4 @@ import './global.scss'
 
 mobx.useStrict(true)
 
-ReactDOM.render((
-	<App store={timerStore} />
-), document.body)
+ReactDOM.render(<App store={timerStore} />, document.body)
