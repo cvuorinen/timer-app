@@ -5,13 +5,7 @@ import { Entry, getEntries, createEntry, DateString, saveEntry } from './db'
 export class TimerStore {
   @observable started: number = 0
   @observable entries: Entry[] = []
-  @observable
-  entry: Entry = {
-    date: getCurrentDate(),
-    duration: 0,
-    title: '',
-    project: ''
-  }
+  @observable entry: Entry = this.newEntry('', '')
 
   private interval: NodeJS.Timer | null = null
 
@@ -53,8 +47,22 @@ export class TimerStore {
   @action.bound
   continueEntry(entry: Entry) {
     this.stop()
-    this.entry = entry
+
+    this.entry =
+      entry.date === getCurrentDate()
+        ? entry
+        : this.newEntry(entry.title, entry.project)
+
     this.start()
+  }
+
+  private newEntry(title: string, project: string) {
+    return {
+      date: getCurrentDate(),
+      duration: 0,
+      title,
+      project
+    }
   }
 
   @action.bound
