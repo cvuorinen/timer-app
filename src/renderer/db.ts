@@ -39,41 +39,26 @@ export async function getEntries(): Promise<Entry[]> {
   }
 }
 
-export function createEntry(entry: Entry): Promise<Entry> {
+export function createEntry(entry: Entry): Promise<PouchDB.Core.Response> {
   entry.modified = new Date().toISOString()
 
-  return db
-    .post(entry)
-    .then(response => {
-      entry._id = response.id
-      entry._rev = response.rev
-
-      return entry
-    })
-    .catch(err => {
-      console.log(err)
-      throw err
-    })
+  return db.post(entry).catch(err => {
+    console.log(err)
+    throw err
+  })
 }
 
-export function saveEntry(entry: Entry): Promise<boolean> {
+export function saveEntry(entry: Entry): Promise<PouchDB.Core.Response> {
   if (entry._id === undefined || entry._rev === undefined) {
     throw 'Cannot save entry without _id or _rev'
   }
 
   entry.modified = new Date().toISOString()
 
-  return db
-    .put(entry)
-    .then(response => {
-      entry._rev = response.rev
-
-      return response.ok
-    })
-    .catch(err => {
-      console.log(err)
-      throw err
-    })
+  return db.put(entry).catch(err => {
+    console.log(err)
+    throw err
+  })
 }
 
 export function removeEntry(entry: Entry): Promise<boolean> {

@@ -19,9 +19,14 @@ export class TimerStore {
     this.interval = setInterval(this.updateDuration, 1000)
 
     if (!this.entry._id) {
-      createEntry(this.entry).then(response => {
-        console.log('createEntry', response)
-      })
+      createEntry(this.entry).then(
+        action('createEntry.then', (response: PouchDB.Core.Response) => {
+          this.entry._id = response.id
+          this.entry._rev = response.rev
+
+          console.log('createEntry', response)
+        })
+      )
     }
   }
 
@@ -39,9 +44,16 @@ export class TimerStore {
     this.started = 0
     clearInterval(this.interval)
 
-    saveEntry(this.entry).then(response => {
-      console.log('saveEntry', response)
-    })
+    saveEntry(this.entry).then(
+      action('saveEntry.then', (response: PouchDB.Core.Response) => {
+        if (this.entry._id === response.id) {
+          this.entry._rev = response.rev
+        }
+
+        console.log('saveEntry', response)
+        this.loadEntries()
+      })
+    )
   }
 
   @action.bound

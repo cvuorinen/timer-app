@@ -20,6 +20,10 @@ export default class Form extends React.Component<FormProps, FormState> {
     this.setStateFromEntry()
   }
 
+  componentWillReceiveProps() {
+    this.setStateFromEntry()
+  }
+
   private setStateFromEntry() {
     this.setState({
       title: this.props.entry.title,
