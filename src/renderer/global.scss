@@ -43,6 +43,15 @@ body {
   }
 }
 
+.list {
+  table {
+    td:first-child,
+    td:last-child {
+      width: 1px;
+    }
+  }
+}
+
 time em {
   font-style: normal;
   font-size: 125%;

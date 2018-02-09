@@ -34,7 +34,7 @@ export default class App extends React.Component<AppProps, {}> {
 
         <Form entry={store.entry} updateEntry={this.updateEntry} />
 
-        <List entries={store.entries} onContinue={store.continueEntry} />
+        <List store={store} />
       </div>
     )
   }

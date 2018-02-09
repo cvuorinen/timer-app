@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 
-import { Entry, getEntries, createEntry, DateString, saveEntry } from './db'
+import { getCurrentDate, getTimestamp } from './utils'
+import { Entry, getEntries, createEntry, saveEntry } from './db'
 
 export class TimerStore {
   @observable started: number = 0
@@ -105,11 +106,3 @@ const timerStore = new TimerStore()
 timerStore.loadEntries()
 
 export default timerStore
-
-function getCurrentDate(): DateString {
-  return new Date().toISOString().split('T')[0]
-}
-
-function getTimestamp(): number {
-  return Math.floor(Date.now() / 1000)
-}
