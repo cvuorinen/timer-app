@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx'
 
 import { getCurrentDate, getTimestamp } from './utils'
-import { Entry, getEntries, createEntry, saveEntry } from './db'
+import { Entry, getEntries, createEntry, saveEntry, removeEntry } from './db'
 
 export class TimerStore {
   @observable started: number = 0
@@ -83,6 +83,13 @@ export class TimerStore {
     this.entry.title = title
     this.entry.project = project
     console.log('updateEntry', this.entry)
+  }
+
+  @action.bound
+  removeEntry(entry: Entry) {
+    removeEntry(entry).then(() => {
+      this.loadEntries()
+    })
   }
 
   @action.bound
