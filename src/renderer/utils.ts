@@ -9,6 +9,10 @@ export function getTimestamp(): number {
 }
 
 export function dateFormat(date: DateString): string {
+  if (date === getCurrentDate()) {
+    return 'Today'
+  }
+
   return date
     .split('-')
     .reverse()
