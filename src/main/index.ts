@@ -8,7 +8,7 @@ let mainWindow: BrowserWindow | null
 
 function createMainWindow() {
   // Construct new BrowserWindow
-  const window = new BrowserWindow()
+  const window = new BrowserWindow({ width: 500, height: 300, frame: false })
 
   // Set url for `win`
   // points to `webpack-dev-server` in development
