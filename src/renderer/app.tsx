@@ -25,7 +25,7 @@ export default class App extends React.Component<AppProps, {}> {
     const store = this.props.store
 
     return (
-      <div className="container">
+      <div className="wrapper">
         <MainButton store={store} />
 
         <div className="time">
