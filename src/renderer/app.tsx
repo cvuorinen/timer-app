@@ -34,6 +34,10 @@ export default class App extends React.Component<AppProps, {}> {
           </div>
 
           <Form entry={store.entry} updateEntry={this.updateEntry} />
+
+          <div className="actions">
+            <div className="drag-handle" />
+          </div>
         </div>
 
         <List store={store} />

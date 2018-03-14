@@ -14,7 +14,7 @@
       display: inline-block;
       vertical-align: top;
       margin-right: 10px;
-      margin-top: 10px;
+      margin-top: 7px;
     }
 
     > .time {
@@ -22,7 +22,7 @@
       display: inline-block;
       vertical-align: top;
       margin-right: 10px;
-      margin-top: 10px;
+      margin-top: 7px;
 
       line-height: 40px;
       font-size: 1.5em;
@@ -37,6 +37,40 @@
 
     > .form {
       display: inline-block;
+      vertical-align: top;
+      margin-right: 30px;
+    }
+
+    > .actions {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 5px 10px;
+
+      .drag-handle {
+        width: 20px;
+        height: 15px;
+
+        cursor: move;
+        -webkit-app-region: drag;
+
+        // https://gist.github.com/abernier/1097177
+        background-image: -webkit-linear-gradient(
+            -90deg,
+            transparent 0%,
+            transparent 50%,
+            white 50%,
+            white 100%
+          ),
+          -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(
+                  0,
+                  0,
+                  0,
+                  0.1
+                )
+                50%, white 50%, white 100%);
+        background-size: 0.25em 0.25em;
+      }
     }
   }
 }
