@@ -71,10 +71,7 @@ export default class List extends React.Component<ListProps, ListState> {
 
   renderList(): JSX.Element {
     const store = this.props.store
-    const entries = !store.started
-      ? store.entries
-      : store.entries.filter(entry => entry._id !== store.entry._id)
-    const grouped = groupBy(entries, 'date')
+    const grouped = groupBy(store.entries, 'date')
     const dates = Object.keys(grouped)
       .sort()
       .reverse()
@@ -86,33 +83,46 @@ export default class List extends React.Component<ListProps, ListState> {
             <table key={date} className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th colSpan={9}>{dateFormat(date)}</th>
+                  <th colSpan={9}>
+                    {dateFormat(date)}
+                    <span className="date-total-time">
+                      <ElapsedTime
+                        duration={this.calculateTotalDuration(grouped[date])}
+                      />
+                    </span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {grouped[date].map(entry => (
-                  <tr
-                    key={entry._id}
-                    onContextMenu={() => this.onContextMenu(entry)}
-                  >
-                    <td onClick={() => this.onClick(entry)}>
-                      <ElapsedTime duration={entry.duration} />
-                    </td>
-                    <td onClick={() => this.onClick(entry)}>
-                      <div>{entry.title}</div>
-                      <div className="text-gray">{entry.project}</div>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-link"
-                        style={{ transform: 'rotate(270deg)' }}
-                        onClick={() => this.props.store.continueEntry(entry)}
-                      >
-                        <i className="icon icon-caret" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {grouped[date].map(entry => {
+                  if (store.started && entry._id === store.entry._id) {
+                    return
+                  }
+
+                  return (
+                    <tr
+                      key={entry._id}
+                      onContextMenu={() => this.onContextMenu(entry)}
+                    >
+                      <td onClick={() => this.onClick(entry)}>
+                        <ElapsedTime duration={entry.duration} />
+                      </td>
+                      <td onClick={() => this.onClick(entry)}>
+                        <div>{entry.title}</div>
+                        <div className="text-gray">{entry.project}</div>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-link"
+                          style={{ transform: 'rotate(270deg)' }}
+                          onClick={() => this.props.store.continueEntry(entry)}
+                        >
+                          <i className="icon icon-caret" />
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           ))}
@@ -121,6 +131,13 @@ export default class List extends React.Component<ListProps, ListState> {
           <i className="icon icon-arrow-up" />
         </div>
       </>
+    )
+  }
+
+  private calculateTotalDuration(entries: Entry[]): number {
+    return entries.reduce(
+      (accumulator, entry) => accumulator + entry.duration,
+      0
     )
   }
 }
