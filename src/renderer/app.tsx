@@ -26,13 +26,15 @@ export default class App extends React.Component<AppProps, {}> {
 
     return (
       <div className="wrapper">
-        <MainButton store={store} />
+        <div className="top">
+          <MainButton store={store} />
 
-        <div className="time">
-          <ElapsedTime duration={store.entry.duration} />
+          <div className="time">
+            <ElapsedTime duration={store.entry.duration} />
+          </div>
+
+          <Form entry={store.entry} updateEntry={this.updateEntry} />
         </div>
-
-        <Form entry={store.entry} updateEntry={this.updateEntry} />
 
         <List store={store} />
       </div>

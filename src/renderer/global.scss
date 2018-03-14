@@ -6,37 +6,38 @@
 @import 'node_modules/spectre.css/src/spectre-icons';
 
 .wrapper {
-  display: grid;
-  grid-template-columns: 50px auto auto;
-  grid-template-rows: auto;
-  grid-template-areas:
-    'button time form'
-    'list list list';
-
-  > .main-button {
-    grid-area: button;
-  }
-
-  > .time {
-    grid-area: time;
-    margin-right: 5px;
-    line-height: 40px;
-    font-size: 1.5em;
-    letter-spacing: -1px;
-
-    color: #999;
-    em {
-      color: #50596c;
-    }
-  }
-
-  > .form {
-    grid-area: form;
+  > .top {
     height: 65px;
-  }
+    padding: 5px 10px;
 
-  > .list {
-    grid-area: list;
+    > .main-button {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    > .time {
+      min-width: 70px;
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 10px;
+      margin-top: 10px;
+
+      line-height: 40px;
+      font-size: 1.5em;
+      letter-spacing: -1px;
+      text-align: center;
+
+      color: #999;
+      em {
+        color: #50596c;
+      }
+    }
+
+    > .form {
+      display: inline-block;
+    }
   }
 }
 
