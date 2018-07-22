@@ -6,6 +6,7 @@ import { groupBy, dateFormat } from './utils'
 import ElapsedTime from './elapsed-time'
 import { TimerStore } from './store'
 import { resize, showContextMenu } from './window'
+import Modal from './modal'
 
 interface ListProps {
   store: TimerStore
@@ -17,13 +18,27 @@ interface ListState {
 
 @observer
 export default class List extends React.Component<ListProps, ListState> {
+  modalEntry: Entry | null = null
+  modalOpen: Function | null = null
+
   constructor(props: ListProps) {
     super(props)
     this.state = { collapsed: false }
   }
 
-  onClick(entry: Entry) {
+  onClick(entry: Entry): void {
     console.log('click', entry)
+  }
+
+  onDoubleClick(entry: Entry) {
+    console.log('dblClick', entry)
+    if (!this.modalOpen) {
+      console.error('modalOpen not bound, cannot open modal')
+      return
+    }
+
+    this.modalEntry = entry
+    this.modalOpen()
   }
 
   onContextMenu(entry: Entry) {
@@ -103,6 +118,7 @@ export default class List extends React.Component<ListProps, ListState> {
                     <tr
                       key={entry._id}
                       onContextMenu={() => this.onContextMenu(entry)}
+                      onDoubleClick={() => this.onDoubleClick(entry)}
                     >
                       <td onClick={() => this.onClick(entry)}>
                         <ElapsedTime duration={entry.duration} />
@@ -130,6 +146,15 @@ export default class List extends React.Component<ListProps, ListState> {
         <div className="collapse" onClick={() => this.collapse()}>
           <i className="icon icon-arrow-up" />
         </div>
+        <Modal
+          render={props => {
+            this.modalOpen = props.open
+            console.log('modal.render', props.isOpen, this.modalEntry)
+            return props.isOpen && this.modalEntry ? (
+              <div>{this.modalEntry.title}</div>
+            ) : null
+          }}
+        />
       </>
     )
   }
