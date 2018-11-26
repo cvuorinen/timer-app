@@ -9,32 +9,42 @@ interface FormProps {
 }
 
 interface FormState {
+  _id?: string
   title: string
   project: string
-  duration: string
 }
 
 @observer
 export default class Form extends React.Component<FormProps, FormState> {
   componentWillMount() {
-    this.setStateFromEntry()
+    this.setStateFromEntry(this.props)
   }
 
-  componentWillReceiveProps() {
-    this.setStateFromEntry()
+  componentWillReceiveProps(nextProps: FormProps) {
+    console.log(
+      'componentWillReceiveProps',
+      this.props.entry.title,
+      nextProps.entry.title
+    )
+    if (this.props.entry._id !== nextProps.entry._id) {
+      this.setStateFromEntry(nextProps)
+    }
   }
 
-  private setStateFromEntry() {
+  private setStateFromEntry(props: FormProps) {
     this.setState({
-      title: this.props.entry.title,
-      project: this.props.entry.project,
-      duration: ''
+      title: props.entry.title,
+      project: props.entry.project
     })
   }
 
-  onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  onSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
-    this.props.updateEntry(this.state.title, this.state.project, true)
+    this.props.updateEntry(
+      this.state.title,
+      this.state.project,
+      !this.props.entry._id
+    )
   }
 
   handleChange = ({ currentTarget }: React.FormEvent<HTMLInputElement>) => {
@@ -53,12 +63,14 @@ export default class Form extends React.Component<FormProps, FormState> {
           name="title"
           value={this.state.title}
           onChange={this.handleChange}
+          onBlur={this.onSubmit}
         />
         <input
           className="form-input input-sm"
           name="project"
           value={this.state.project}
           onChange={this.handleChange}
+          onBlur={this.onSubmit}
         />
         <button type="submit" className="d-none" />
       </form>
