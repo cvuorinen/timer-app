@@ -120,3 +120,10 @@ const timerStore = new TimerStore()
 timerStore.loadEntries()
 
 export default timerStore
+
+// Prevent losing data on quit by stopping timer (which saves it to db)
+window.addEventListener('unload', () => {
+  if (timerStore.started) {
+    timerStore.stop()
+  }
+})
