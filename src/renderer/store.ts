@@ -69,6 +69,13 @@ export class TimerStore {
     this.start()
   }
 
+  @action.bound
+  new() {
+    this.stop()
+
+    this.entry = this.newEntry('', '')
+  }
+
   private newEntry(title: string, project: string) {
     return {
       date: getCurrentDate(),

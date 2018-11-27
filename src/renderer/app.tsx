@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 
 import { TimerStore } from './store'
 import MainButton from './main-button'
+import NewButton from './new-button'
 import ElapsedTime from './elapsed-time'
 import Form from './form'
 import List from './list'
@@ -34,6 +35,8 @@ export default class App extends React.Component<AppProps, {}> {
           </div>
 
           <Form entry={store.entry} updateEntry={this.updateEntry} />
+
+          <NewButton store={store} />
 
           <div className="actions">
             <div className="drag-handle" />
