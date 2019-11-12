@@ -21,11 +21,6 @@ export default class Form extends React.Component<FormProps, FormState> {
   }
 
   componentWillReceiveProps(nextProps: FormProps) {
-    console.log(
-      'componentWillReceiveProps',
-      this.props.entry.title,
-      nextProps.entry.title
-    )
     if (this.props.entry._id !== nextProps.entry._id) {
       this.setStateFromEntry(nextProps)
     }

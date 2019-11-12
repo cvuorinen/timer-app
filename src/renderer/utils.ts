@@ -73,7 +73,6 @@ function convertTimeStringToSeconds(time: string): number {
 
   const timeRegex = RegExp('(\\d+):(\\d+)(:(\\d+))?')
   if (timeRegex.test(time)) {
-    console.log('utils.ts::timeRegex', timeRegex.exec(time)!)
     const [ , hours, minutes, , seconds ] = timeRegex.exec(time)!
 
     return (parseInt(hours) * 60 * 60) + (parseInt(minutes) * 60) + parseInt(seconds)
