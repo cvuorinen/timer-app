@@ -1,5 +1,5 @@
 // Define variables to override Spectre default ones
-//$primary-color: #2e5bec;
+$primary-color: #1e88e5;
 
 // Import full Spectre source code + icons
 @import 'node_modules/spectre.css/src/spectre';
@@ -19,7 +19,8 @@
     }
 
     > .time {
-      min-width: 70px;
+      position: relative;
+      width: 100px;
       display: inline-block;
       vertical-align: top;
       margin-right: 10px;
@@ -29,6 +30,32 @@
       font-size: 1.5em;
       letter-spacing: -1px;
       text-align: center;
+
+      input, time {
+        position: absolute;
+        top: 0;
+        left: 1px;
+        width: 95%;
+        background: #fff;
+      }
+
+      input {
+        height: auto;
+        font-size: 1.1em;
+        padding: 5px 0;
+        border: none;
+        text-align: center;
+      }
+
+      time {
+        // click through the element into the input behind it
+        pointer-events: none;
+      }
+
+      input:focus + time {
+        // hide the foreground element when focus in input
+        display: none;
+       }
 
       color: #999;
       em {

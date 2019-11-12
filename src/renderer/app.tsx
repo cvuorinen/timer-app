@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { TimerStore } from './store'
 import MainButton from './main-button'
 import NewButton from './new-button'
-import ElapsedTime from './elapsed-time'
+import TimeForm from './time-form'
 import Form from './form'
 import List from './list'
 
@@ -31,7 +31,10 @@ export default class App extends React.Component<AppProps, {}> {
           <MainButton store={store} />
 
           <div className="time">
-            <ElapsedTime duration={store.entry.duration} />
+            <TimeForm
+              duration={store.entry.duration}
+              setDuration={this.props.store.setDuration}
+            />
           </div>
 
           <Form entry={store.entry} updateEntry={this.updateEntry} />
