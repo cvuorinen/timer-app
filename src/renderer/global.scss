@@ -14,7 +14,7 @@ $primary-color: #1e88e5;
     > .new-button {
       display: inline-block;
       vertical-align: top;
-      margin-right: 10px;
+      margin-right: 5px;
       margin-top: 5px;
     }
 
@@ -73,10 +73,10 @@ $primary-color: #1e88e5;
       position: absolute;
       top: 0;
       right: 0;
-      padding: 5px 10px;
+      padding: 5px;
 
       .drag-handle {
-        width: 20px;
+        width: 18px;
         height: 15px;
 
         cursor: move;
