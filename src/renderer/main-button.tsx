@@ -23,7 +23,7 @@ export default class MainButton extends React.Component<MainButtonProps, {}> {
           </button>
         ) : (
           <button
-            className="btn btn-action btn-lg circle btn-success"
+            className="btn btn-action btn-lg circle btn-primary"
             onClick={store.start}
           >
             <i className="icon icon-time" />
