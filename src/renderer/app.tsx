@@ -7,6 +7,7 @@ import NewButton from './new-button'
 import TimeForm from './time-form'
 import Form from './form'
 import List from './list'
+import Settings from './settings'
 
 interface AppProps {
   store: TimerStore
@@ -41,9 +42,7 @@ export default class App extends React.Component<AppProps, {}> {
 
           <NewButton store={store} />
 
-          <div className="actions">
-            <div className="drag-handle" />
-          </div>
+          <Settings />
         </div>
 
         <List store={store} />

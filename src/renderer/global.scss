@@ -69,13 +69,19 @@ $primary-color: #1e88e5;
       margin-right: 10px;
     }
 
-    > .actions {
+    > .settings {
       position: absolute;
       top: 0;
       right: 0;
       padding: 5px;
+      padding-top: 20px;
+      text-align: right;
 
       .drag-handle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 5px;
         width: 18px;
         height: 15px;
 
@@ -98,6 +104,13 @@ $primary-color: #1e88e5;
                 )
                 50%, white 50%, white 100%);
         background-size: 0.25em 0.25em;
+      }
+
+      .btn:focus {
+        box-shadow: none;
+      }
+      .btn-sm {
+        padding: 0.1rem;
       }
     }
   }

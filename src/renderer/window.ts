@@ -23,3 +23,11 @@ export function showContextMenu(items: Electron.MenuItemConstructorOptions[]) {
 
   menu.popup()
 }
+
+export function setAlwaysOnTop(flag: boolean) {
+  remote.getCurrentWindow().setAlwaysOnTop(flag)
+}
+
+export function isAlwaysOnTop(): boolean {
+  return remote.getCurrentWindow().isAlwaysOnTop()
+}
