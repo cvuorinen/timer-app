@@ -27,3 +27,57 @@ export function groupBy<T>(list: T[], prop: keyof T): { [id: string]: T[] } {
     return groups
   }, {})
 }
+
+export function formatTimeString(duration: number): string {
+  if (duration < 3600) {
+    const minutes = Math.floor(duration / 60)
+    let seconds: number | string = duration % 60
+    seconds = seconds < 10 ? '0' + seconds : seconds
+
+    return `${minutes}:${seconds}`
+  }
+
+  const hours = Math.floor(duration / 3600)
+  let minutes: number | string = Math.floor((duration % 3600) / 60)
+  let seconds: number | string = (duration % 3600) % 60
+  minutes = minutes < 10 ? '0' + minutes : minutes
+  seconds = seconds < 10 ? '0' + seconds : seconds
+
+  return `${hours}:${minutes}:${seconds}`
+}
+
+export function parseTimeString(time: string): number {
+  const seconds = convertTimeStringToSeconds(time)
+
+  if (Number.isNaN(seconds)) {
+    throw 'Invalid time string'
+  }
+
+  return seconds
+}
+
+function convertTimeStringToSeconds(time: string): number {
+  const minuteRegex = RegExp('(\\d+)\\s?(m|min)')
+  if (minuteRegex.test(time)) {
+    const minutes = minuteRegex.exec(time)![1]
+
+    return parseInt(minutes) * 60
+  }
+
+  const hourRegex = RegExp('(\\d+[\\.,]\\d+)\\s?(h)?')
+  if (hourRegex.test(time)) {
+    const hours = hourRegex.exec(time)![1]
+
+    return parseFloat(hours.replace(',', '.')) * 60 * 60
+  }
+
+  const timeRegex = RegExp('(\\d+):(\\d+)(:(\\d+))?')
+  if (timeRegex.test(time)) {
+    console.log('utils.ts::timeRegex', timeRegex.exec(time)!)
+    const [ , hours, minutes, , seconds ] = timeRegex.exec(time)!
+
+    return (parseInt(hours) * 60 * 60) + (parseInt(minutes) * 60) + parseInt(seconds)
+  }
+
+  throw 'Unknown time format'
+}
