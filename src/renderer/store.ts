@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
+import * as electron from 'electron'
 
-import { getCurrentDate, getTimestamp } from './utils'
+import { getCurrentDate, getTimestamp, parseTimeString } from './utils'
 import { Entry, getEntries, createEntry, saveEntry, removeEntry } from './db'
 
 export class TimerStore {
@@ -33,7 +34,23 @@ export class TimerStore {
 
   @action.bound
   private updateDuration() {
-    this.entry.duration = getTimestamp() - this.started
+    const duration = getTimestamp() - this.started
+
+    if (duration) {
+      this.entry.duration = getTimestamp() - this.started
+    }
+  }
+
+  @action.bound
+  setDuration(time: string) {
+    try {
+      this.entry.duration = parseTimeString(time)
+      if (this.started) {
+        this.started = getTimestamp() - this.entry.duration
+      }
+    } catch (error) {
+      electron.remote.dialog.showErrorBox('Error', error)
+    }
   }
 
   @action.bound
@@ -44,17 +61,22 @@ export class TimerStore {
 
     this.started = 0
     clearInterval(this.interval)
+    this.saveEntry()
+  }
 
-    saveEntry(this.entry).then(
-      action('saveEntry.then', (response: PouchDB.Core.Response) => {
-        if (this.entry._id === response.id) {
-          this.entry._rev = response.rev
-        }
+  private saveEntry() {
+    if (this.entry._id) {
+      saveEntry(this.entry).then(
+        action('saveEntry.then', (response: PouchDB.Core.Response) => {
+          if (this.entry._id === response.id) {
+            this.entry._rev = response.rev
+          }
 
-        console.log('saveEntry', response)
-        this.loadEntries()
-      })
-    )
+          console.log('saveEntry', response)
+          this.loadEntries()
+        })
+      )
+    }
   }
 
   @action.bound
@@ -90,6 +112,7 @@ export class TimerStore {
     this.entry.title = title
     this.entry.project = project
     console.log('updateEntry', this.entry)
+    this.saveEntry()
   }
 
   @action.bound
