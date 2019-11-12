@@ -71,11 +71,18 @@ function convertTimeStringToSeconds(time: string): number {
     return parseFloat(hours.replace(',', '.')) * 60 * 60
   }
 
-  const timeRegex = RegExp('(\\d+):(\\d+)(:(\\d+))?')
-  if (timeRegex.test(time)) {
-    const [ , hours, minutes, , seconds ] = timeRegex.exec(time)!
+  const fullTimeRegex = RegExp('(\\d+):(\\d+):(\\d+)')
+  if (fullTimeRegex.test(time)) {
+    const [ , hours, minutes, seconds ] = fullTimeRegex.exec(time)!
 
     return (parseInt(hours) * 60 * 60) + (parseInt(minutes) * 60) + parseInt(seconds)
+  }
+
+  const shortTimeRegex = RegExp('(\\d+):(\\d+)')
+  if (shortTimeRegex.test(time)) {
+    const [ , minutes, seconds ] = shortTimeRegex.exec(time)!
+
+    return (parseInt(minutes) * 60) + parseInt(seconds)
   }
 
   throw 'Unknown time format'
