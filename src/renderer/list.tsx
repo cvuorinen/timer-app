@@ -44,7 +44,7 @@ export default class List extends React.Component<ListProps, ListState> {
   }
 
   collapse() {
-    resize({ height: 120 })
+    resize({ height: 108 })
     this.setState({ collapsed: true })
   }
 
