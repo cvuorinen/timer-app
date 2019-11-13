@@ -1,11 +1,18 @@
 // Define variables to override Spectre default ones
 $primary-color: #1e88e5;
+$dark-bg: #1e1e1e;
 
 // Import full Spectre source code + icons
 @import 'node_modules/spectre.css/src/spectre';
 @import 'node_modules/spectre.css/src/spectre-icons';
 
+body {
+  background: $dark-bg;
+}
+
 .wrapper {
+  background: #fff;
+
   > .top {
     height: 65px;
     padding: 5px 10px;
@@ -31,7 +38,8 @@ $primary-color: #1e88e5;
       letter-spacing: -1px;
       text-align: center;
 
-      input, time {
+      input,
+      time {
         position: absolute;
         top: 0;
         left: 1px;
@@ -55,7 +63,7 @@ $primary-color: #1e88e5;
       input:focus + time {
         // hide the foreground element when focus in input
         display: none;
-       }
+      }
 
       color: #999;
       em {
@@ -106,11 +114,15 @@ $primary-color: #1e88e5;
         background-size: 0.25em 0.25em;
       }
 
-      .btn:focus {
-        box-shadow: none;
-      }
-      .btn-sm {
+      .btn {
+        display: block;
         padding: 0.1rem;
+        height: 1rem;
+        font-size: 0.6rem;
+
+        &:focus {
+          box-shadow: none;
+        }
       }
     }
   }
@@ -121,6 +133,13 @@ $primary-color: #1e88e5;
     height: calc(100vh - 100px);
     overflow: auto;
   }
+  .list-inner::-webkit-scrollbar {
+    width: 10px;
+    background-color: darken(#fff, 5%);
+  }
+  .list-inner::-webkit-scrollbar-thumb {
+    background: darken(#fff, 20%);
+}
   table {
     td:first-child,
     td:last-child {
@@ -151,4 +170,72 @@ $primary-color: #1e88e5;
 time em {
   font-style: normal;
   font-size: 125%;
+}
+
+/* Dark theme */
+.wrapper.dark-theme {
+  background: $dark-bg;
+  color: #ccc;
+
+  input {
+    background: $dark-bg;
+    color: #ccc;
+    border-color: lighten($dark-bg, 10%);
+  }
+
+  .new-button .btn {
+    background: $dark-bg;
+  }
+
+  > .top {
+    > .time {
+      input,
+      time {
+        background: $dark-bg;
+      }
+
+      color: #999;
+      em {
+        color: #ccc;
+      }
+    }
+
+    > .settings {
+      .drag-handle {
+        background-image: -webkit-linear-gradient(
+            -90deg,
+            transparent 0%,
+            transparent 50%,
+            $dark-bg 50%,
+            $dark-bg 100%
+          ),
+          -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0%, rgba(
+                  255,
+                  255,
+                  255,
+                  0.1
+                )
+                50%, $dark-bg 50%, $dark-bg 100%);
+      }
+    }
+  }
+
+  .list {
+    .list-inner::-webkit-scrollbar {
+      background-color: lighten($dark-bg, 5%);
+    }
+    .list-inner::-webkit-scrollbar-thumb {
+      background: lighten($dark-bg, 20%);
+  }
+    .table {
+      th,
+      td {
+        border-color: lighten($dark-bg, 10%);
+      }
+      &.table-striped tbody tr:nth-of-type(odd),
+      &.table-hover tbody tr:hover {
+        background: lighten($dark-bg, 2%);
+      }
+    }
+  }
 }

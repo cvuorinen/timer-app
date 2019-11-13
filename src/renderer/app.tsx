@@ -13,8 +13,22 @@ interface AppProps {
   store: TimerStore
 }
 
+interface AppState {
+  darkTheme: boolean
+}
+
 @observer
-export default class App extends React.Component<AppProps, {}> {
+export default class App extends React.Component<AppProps, AppState> {
+  state = {
+    darkTheme: false
+  }
+
+  toggleTheme = () => {
+    this.setState({
+      darkTheme: !this.state.darkTheme
+    })
+  }
+
   updateEntry = (title: string, project: string, start = false) => {
     this.props.store.updateEntry(title, project)
 
@@ -27,7 +41,7 @@ export default class App extends React.Component<AppProps, {}> {
     const store = this.props.store
 
     return (
-      <div className="wrapper">
+      <div className={'wrapper ' + (this.state.darkTheme ? 'dark-theme' : '')}>
         <div className="top">
           <MainButton store={store} />
 
@@ -42,7 +56,7 @@ export default class App extends React.Component<AppProps, {}> {
 
           <NewButton store={store} />
 
-          <Settings />
+          <Settings darkTheme={this.state.darkTheme} toggleTheme={this.toggleTheme} />
         </div>
 
         <List store={store} />
