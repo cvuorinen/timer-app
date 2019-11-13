@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
 
+import { createTrayIcon } from './tray'
 import { TimerStore } from './store'
 import MainButton from './main-button'
 import NewButton from './new-button'
@@ -21,6 +22,11 @@ interface AppState {
 export default class App extends React.Component<AppProps, AppState> {
   state = {
     darkTheme: false
+  }
+
+  constructor(props: AppProps) {
+    super(props)
+    createTrayIcon()
   }
 
   toggleTheme = () => {

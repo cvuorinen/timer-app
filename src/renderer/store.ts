@@ -3,6 +3,7 @@ import * as electron from 'electron'
 
 import { getCurrentDate, getTimestamp, parseTimeString } from './utils'
 import { Entry, getEntries, createEntry, saveEntry, removeEntry } from './db'
+import { updateTrayIcon } from './tray'
 
 export class TimerStore {
   @observable started: number = 0
@@ -19,6 +20,8 @@ export class TimerStore {
 
     this.started = getTimestamp() - this.entry.duration
     this.interval = setInterval(this.updateDuration, 1000)
+
+    updateTrayIcon(true, this.entry)
 
     if (!this.entry._id) {
       createEntry(this.entry).then(
@@ -62,6 +65,8 @@ export class TimerStore {
     this.started = 0
     clearInterval(this.interval)
     this.saveEntry()
+
+    updateTrayIcon(false, this.entry)
   }
 
   private saveEntry() {

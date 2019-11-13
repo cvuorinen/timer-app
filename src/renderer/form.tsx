@@ -62,6 +62,7 @@ export default class Form extends React.Component<FormProps, FormState> {
         />
         <input
           className="form-input input-sm"
+          placeholder="project/client..."
           name="project"
           value={this.state.project}
           onChange={this.handleChange}
