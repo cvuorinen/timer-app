@@ -1,4 +1,5 @@
 import electron from 'electron'
+import path from 'path'
 import timerStore from './store'
 import { Entry } from './db'
 
@@ -8,7 +9,7 @@ const { Tray, Menu } = remote
 let trayIcon: electron.Tray
 
 export function createTrayIcon() {
-  trayIcon = new Tray(`${__dirname}/../not-tracking.png`)
+  trayIcon = new Tray(path.join(__static, 'not-tracking.png'))
 
   trayIcon.setContextMenu(
     createTrayMenu(false)
@@ -18,7 +19,7 @@ export function createTrayIcon() {
 export function updateTrayIcon(tracking: boolean, entry: Entry) {
   const imageName = tracking ? 'tracking.png' : 'not-tracking.png'
 
-  trayIcon.setImage(`${__dirname}/../${imageName}`)
+  trayIcon.setImage(path.join(__static, imageName))
 
   trayIcon.setContextMenu(
     createTrayMenu(tracking, entry)
