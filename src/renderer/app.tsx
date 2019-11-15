@@ -2,6 +2,7 @@ import * as React from 'react'
 import { observer } from 'mobx-react'
 
 import { createTrayIcon } from './tray'
+import { resize } from './window'
 import { TimerStore } from './store'
 import MainButton from './main-button'
 import NewButton from './new-button'
@@ -15,18 +16,32 @@ interface AppProps {
 }
 
 interface AppState {
+  collapsed: boolean
   darkTheme: boolean
 }
 
 @observer
 export default class App extends React.Component<AppProps, AppState> {
   state = {
+    collapsed: false,
     darkTheme: false
   }
 
   constructor(props: AppProps) {
     super(props)
     createTrayIcon()
+  }
+
+  toggleCollapse = () => {
+    if (this.state.collapsed) {
+      resize({ height: 550 })
+    } else {
+      resize({ height: 69 })
+    }
+
+    this.setState({
+      collapsed: !this.state.collapsed
+    })
   }
 
   toggleTheme = () => {
@@ -46,8 +61,14 @@ export default class App extends React.Component<AppProps, AppState> {
   render() {
     const store = this.props.store
 
+    const wrapperClasses = [
+      'wrapper',
+      this.state.collapsed ? 'collapsed' : '',
+      this.state.darkTheme ? 'dark-theme' : '',
+    ]
+
     return (
-      <div className={'wrapper ' + (this.state.darkTheme ? 'dark-theme' : '')}>
+      <div className={wrapperClasses.join(' ')}>
         <div className="top">
           <MainButton store={store} />
 
@@ -65,7 +86,7 @@ export default class App extends React.Component<AppProps, AppState> {
           <Settings darkTheme={this.state.darkTheme} toggleTheme={this.toggleTheme} />
         </div>
 
-        <List store={store} />
+        <List store={store} collapsed={this.state.collapsed} toggleCollapse={this.toggleCollapse} />
       </div>
     )
   }

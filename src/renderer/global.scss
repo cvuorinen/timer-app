@@ -179,13 +179,23 @@ body {
     line-height: 1;
   }
   .expand {
-    padding-top: 15px;
+    margin-top: -30px;
   }
 }
 
 time em {
   font-style: normal;
   font-size: 125%;
+}
+
+.wrapper.collapsed {
+  > .top {
+    > .form {
+      .project-input {
+        display: none;
+      }
+    }
+  }
 }
 
 /* Dark theme */

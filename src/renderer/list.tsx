@@ -5,23 +5,16 @@ import { Entry } from './db'
 import { groupBy, dateFormat } from './utils'
 import ElapsedTime from './elapsed-time'
 import { TimerStore } from './store'
-import { resize, showContextMenu } from './window'
+import { showContextMenu } from './window'
 
 interface ListProps {
   store: TimerStore
-}
-
-interface ListState {
   collapsed: boolean
+  toggleCollapse: () => void
 }
 
 @observer
-export default class List extends React.Component<ListProps, ListState> {
-  constructor(props: ListProps) {
-    super(props)
-    this.state = { collapsed: false }
-  }
-
+export default class List extends React.Component<ListProps, {}> {
   onClick(entry: Entry) {
     console.log('click', entry)
   }
@@ -43,27 +36,17 @@ export default class List extends React.Component<ListProps, ListState> {
     ])
   }
 
-  collapse() {
-    resize({ height: 109 })
-    this.setState({ collapsed: true })
-  }
-
-  expand() {
-    resize({ height: 550 })
-    this.setState({ collapsed: false })
-  }
-
   render() {
     return (
       <div className="list">
-        {this.state.collapsed ? this.renderCollapsed() : this.renderList()}
+        {this.props.collapsed ? this.renderCollapsed() : this.renderList()}
       </div>
     )
   }
 
   renderCollapsed(): JSX.Element {
     return (
-      <div className="expand" onClick={() => this.expand()}>
+      <div className="expand" onClick={this.props.toggleCollapse}>
         <i className="icon icon-arrow-down" />
       </div>
     )
@@ -127,7 +110,7 @@ export default class List extends React.Component<ListProps, ListState> {
             </table>
           ))}
         </div>
-        <div className="collapse" onClick={() => this.collapse()}>
+        <div className="collapse" onClick={this.props.toggleCollapse}>
           <i className="icon icon-arrow-up" />
         </div>
       </>

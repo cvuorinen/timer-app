@@ -53,7 +53,7 @@ export default class Form extends React.Component<FormProps, FormState> {
     return (
       <form className="form" onSubmit={this.onSubmit}>
         <input
-          className="form-input"
+          className="form-input title-input"
           placeholder="What's up?"
           name="title"
           value={this.state.title}
@@ -61,7 +61,7 @@ export default class Form extends React.Component<FormProps, FormState> {
           onBlur={this.onSubmit}
         />
         <input
-          className="form-input input-sm"
+          className="form-input input-sm project-input"
           placeholder="project/client..."
           name="project"
           value={this.state.project}
