@@ -1,6 +1,6 @@
 // Define variables to override Spectre default ones
 $primary-color: #1e88e5;
-$dark-bg: #1e1e1e;
+$dark-bg: #212123;
 
 // Import full Spectre source code + icons
 @import 'node_modules/spectre.css/src/spectre';
@@ -75,6 +75,22 @@ body {
       display: inline-block;
       vertical-align: top;
       margin-right: 10px;
+      margin-top: 5px;
+
+      input {
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0;
+        padding: 2px;
+        height: auto;
+
+        &:focus {
+          box-shadow: none;
+          border-width: 2px;
+          border-color: lighten($primary-color, 10%);
+          padding-bottom: 1px; /* to counter the effect of 1px thicker border */
+        }
+      }
     }
 
     > .settings {
@@ -197,6 +213,16 @@ time em {
       color: #999;
       em {
         color: #ccc;
+      }
+    }
+
+    > .form {
+      input {
+        border-color: rgba(255, 255, 255, 0.2);
+
+        &:focus {
+          border-color: darken($primary-color, 10%);
+        }
       }
     }
 
