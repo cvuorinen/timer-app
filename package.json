@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder"
+    "build": "npm run compile && electron-builder"
   },
   "dependencies": {
     "mobx": "^3.6.2",
