@@ -24,7 +24,7 @@ interface AppState {
 export default class App extends React.Component<AppProps, AppState> {
   state = {
     collapsed: false,
-    darkTheme: false
+    darkTheme: true
   }
 
   constructor(props: AppProps) {
