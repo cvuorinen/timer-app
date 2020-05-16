@@ -14,7 +14,7 @@ export default class NewButton extends React.Component<NewButtonProps, {}> {
 
     return (
       <div className="new-button">
-        <button className="btn btn-action btn-sm circle" onClick={store.new}>
+        <button className="btn btn-action btn-sm s-circle" onClick={store.new}>
           <i className="icon icon-plus" />
         </button>
       </div>

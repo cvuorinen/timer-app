@@ -16,14 +16,14 @@ export default class MainButton extends React.Component<MainButtonProps, {}> {
       <div className="main-button">
         {store.started ? (
           <button
-            className="btn btn-action btn-lg circle btn-error"
+            className="btn btn-action btn-lg s-circle btn-error"
             onClick={store.stop}
           >
             <i className="icon icon-shutdown" />
           </button>
         ) : (
           <button
-            className="btn btn-action btn-lg circle btn-primary"
+            className="btn btn-action btn-lg s-circle btn-primary"
             onClick={store.start}
           >
             <i className="icon icon-time" />
