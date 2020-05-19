@@ -1,3 +1,4 @@
+import path from 'path'
 import { app, BrowserWindow } from 'electron'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -8,7 +9,13 @@ let mainWindow: BrowserWindow | null
 
 function createMainWindow() {
   // Construct new BrowserWindow
-  const window = new BrowserWindow({ width: 500, height: 300, frame: false })
+  const window = new BrowserWindow({
+    width: 500,
+    height: 300,
+    frame: false,
+    icon: path.join(__dirname, '/icon.png'),
+    webPreferences: { nodeIntegration: true },
+  })
 
   // Set url for `win`
   // points to `webpack-dev-server` in development

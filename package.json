@@ -1,6 +1,6 @@
 {
   "name": "timer-app",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Timetracker electron app",
   "author": "Carl Vuorinen <carl.vuorinen@gmail.com>",
   "license": "MIT",
@@ -24,18 +24,14 @@
     "@types/pouchdb-find": "^6.3.5",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
-    "electron": "^1.8.8",
-    "electron-builder": "^19.56.2",
-    "electron-webpack": "^1.13.0",
-    "electron-webpack-ts": "^1.4.0",
+    "electron": "8.2.0",
+    "electron-builder": "^22.4.1",
+    "electron-webpack": "^2.8.2",
+    "electron-webpack-ts": "^4.0.1",
     "node-sass": "^4.14.0",
     "sass-loader": "^6.0.7",
-    "typescript": "^2.9.2",
-    "webpack": "^3.12.0"
-  },
-  "// resolutions": "Pin webpack-sources version to fix https://github.com/electron-userland/electron-webpack/issues/58",
-  "resolutions": {
-    "webpack-sources": "1.0.1"
+    "typescript": "^3.9.2",
+    "webpack": "~4.42.1"
   },
   "build": {
     "linux": {
